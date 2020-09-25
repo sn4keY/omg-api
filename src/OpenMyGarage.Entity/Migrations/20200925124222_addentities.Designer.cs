@@ -9,8 +9,8 @@ using OpenMyGarage.Entity.Data;
 namespace OpenMyGarage.Entity.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200925122504_addedentites")]
-    partial class addedentites
+    [Migration("20200925124222_addentities")]
+    partial class addentities
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -250,7 +250,7 @@ namespace OpenMyGarage.Entity.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("Nationality")
-                        .HasColumnType("text");
+                        .HasColumnType("varchar(256)");
 
                     b.HasKey("Plate");
 
