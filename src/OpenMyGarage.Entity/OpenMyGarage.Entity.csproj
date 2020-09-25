@@ -15,7 +15,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Entity\" />
     <Folder Include="UnitofWork\" />
     <Folder Include="Repository\" />
   </ItemGroup>
