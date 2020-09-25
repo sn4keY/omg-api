@@ -1,9 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore.Migrations;
 using MySql.Data.EntityFrameworkCore.Metadata;
 
 namespace OpenMyGarage.Entity.Migrations
 {
-    public partial class addedentites : Migration
+    public partial class addentities : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -28,7 +29,7 @@ namespace OpenMyGarage.Entity.Migrations
                 {
                     Plate = table.Column<string>(nullable: false),
                     Name = table.Column<string>(nullable: false),
-                    Nationality = table.Column<string>(nullable: true, defaultValue: "HU"),
+                    Nationality = table.Column<string>(type: "varchar(256)", nullable: true, defaultValue: "HU"),
                     CarManufacturer = table.Column<string>(nullable: false),
                     AutoOpen = table.Column<bool>(nullable: false, defaultValue: false)
                 },

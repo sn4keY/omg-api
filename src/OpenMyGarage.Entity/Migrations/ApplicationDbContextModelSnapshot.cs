@@ -248,7 +248,7 @@ namespace OpenMyGarage.Entity.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("Nationality")
-                        .HasColumnType("text");
+                        .HasColumnType("varchar(256)");
 
                     b.HasKey("Plate");
 

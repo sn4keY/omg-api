@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace OpenMyGarage.Entity.Entity
@@ -14,6 +15,7 @@ namespace OpenMyGarage.Entity.Entity
         [Required]
         public string Name { get; set; }
 
+        [Column(TypeName = "varchar(256)")]
         public string Nationality { get; set; }
 
         [Required]
