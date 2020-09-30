@@ -20,6 +20,10 @@ namespace OpenMyGarage.Entity.Data
         {
             base.OnModelCreating(builder);
 
+            builder.Entity<Privilege>().HasData(
+                new Privilege() { ID = 1, UserPrivilege = Entity.UserPrivileges.UserPrivilege.OpenGate},
+                new Privilege() { ID = 2, UserPrivilege = Entity.UserPrivileges.UserPrivilege.ManagePlates});
+
             builder.Entity<Entity.UserPrivilege>().HasKey(up => new { up.UserId, up.PrivilegeId });
             builder.Entity<Entity.UserPrivilege>()
                 .HasOne(up => up.ApplicationUser)
