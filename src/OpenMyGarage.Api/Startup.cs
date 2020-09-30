@@ -7,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using OpenMyGarage.Entity.Data;
+using OpenMyGarage.Entity.Entity.UserPrivileges;
 
 namespace OpenMyGarage.Api
 {
@@ -25,7 +26,7 @@ namespace OpenMyGarage.Api
                 options.UseMySQL(
                     Configuration.GetConnectionString("MySqlServerConnection")));
 
-            services.AddIdentity<IdentityUser, IdentityRole>(
+            services.AddIdentity<ApplicationUser, IdentityRole>(
                 option => {
                     option.Password.RequireDigit = true;
                     option.Password.RequiredLength = 6;

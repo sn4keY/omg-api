@@ -1,10 +1,11 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using OpenMyGarage.Entity.Entity;
+using OpenMyGarage.Entity.Entity.UserPrivileges;
 
 namespace OpenMyGarage.Entity.Data
 {
-    public class ApplicationDbContext : IdentityDbContext
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public DbSet<EntryLog> EntryLogs { get; set; }
 
