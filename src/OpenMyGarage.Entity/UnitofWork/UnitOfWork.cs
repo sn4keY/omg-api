@@ -7,7 +7,7 @@ using System.Text;
 
 namespace OpenMyGarage.Entity.UnitofWork
 {
-    public class UnitOfWork : IDisposable
+    public class UnitOfWork : IUnitOfWork, IDisposable
     {
         private ApplicationDbContext context;
         private Dictionary<Type, object> repositories;
