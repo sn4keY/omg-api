@@ -7,6 +7,6 @@ namespace OpenMyGarage.Entity.Entity.UserPrivileges
 {
     public class ApplicationUser : IdentityUser
     {
-        public ICollection<Privilege> Privileges { get; set; }
+        public ICollection<Entity.UserPrivilege> Privileges { get; set; }
     }
 }
