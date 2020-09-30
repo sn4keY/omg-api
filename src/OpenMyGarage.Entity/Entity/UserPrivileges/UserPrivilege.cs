@@ -4,7 +4,7 @@ using System.Text;
 
 namespace OpenMyGarage.Entity.Entity.UserPrivileges
 {
-    public enum Privilege
+    public enum UserPrivilege
     {
         OpenGate,
         ManagePlates
