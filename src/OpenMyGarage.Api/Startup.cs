@@ -1,3 +1,4 @@
+using AutoMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -8,8 +9,13 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
+using OpenMyGarage.Api.Mapper;
+using OpenMyGarage.Domain.Service;
+using OpenMyGarage.Domain.ViewModel;
 using OpenMyGarage.Entity.Data;
+using OpenMyGarage.Entity.Entity;
 using OpenMyGarage.Entity.Entity.UserPrivileges;
+using OpenMyGarage.Entity.UnitofWork;
 using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 
@@ -61,11 +67,19 @@ namespace OpenMyGarage.Api
 
             services.AddAuthorization(options =>
             {
-                options.AddPolicy("ManagePlates", policy => policy.RequireClaim("Privilege", UserPrivilege.ManagePlates.ToString()));
-                options.AddPolicy("OpenGate", policy => policy.RequireClaim("Privilege", UserPrivilege.OpenGate.ToString()));
+                options.AddPolicy("ManagePlates", policy => policy.RequireClaim("Privilege", Entity.Entity.UserPrivileges.UserPrivilege.ManagePlates.ToString()));
+                options.AddPolicy("OpenGate", policy => policy.RequireClaim("Privilege", Entity.Entity.UserPrivileges.UserPrivilege.OpenGate.ToString()));
             });
 
             services.AddMvc(option => option.EnableEndpointRouting = false).SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
+
+            services.AddTransient<IUnitOfWork, UnitOfWork>();
+
+            services.AddTransient(typeof(IAuthenticationServiceAsync), typeof(AuthenticationServiceAsync));
+            services.AddTransient(typeof(IService<EntryLogViewModel, EntryLog>), typeof(EntryLogService));
+            services.AddTransient(typeof(IService<StoredPlateViewModel, StoredPlate>), typeof(StoredPlateService));
+
+            services.AddAutoMapper(typeof(MappingProfile));
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -84,6 +98,7 @@ namespace OpenMyGarage.Api
             app.UseHttpsRedirection();
 
             app.UseAuthentication();
+            app.UseAuthorization();
             app.UseMvc();
         }
     }
