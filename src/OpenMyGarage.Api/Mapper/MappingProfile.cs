@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace OpenMyGarage.Api.Mapper
 {
-    public class MappigProfile : Profile
+    public class MappingProfile : Profile
     {
-        public MappigProfile()
+        public MappingProfile()
         {
             CreateMap<EntryLogViewModel, EntryLog>();
             CreateMap<EntryLog, EntryLogViewModel>();
