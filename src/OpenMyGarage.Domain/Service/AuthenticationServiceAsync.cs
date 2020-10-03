@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using OpenMyGarage.Domain.ViewModel;
+using OpenMyGarage.Entity.Entity;
 using OpenMyGarage.Entity.Entity.UserPrivileges;
 using System;
 using System.Collections.Generic;
@@ -52,11 +53,7 @@ namespace OpenMyGarage.Domain.Service
             if (!await userManager.CheckPasswordAsync(user, vm.Password))
                 return new UnauthorizedResult();
 
-            var claim = new[]
-            {
-                new Claim(JwtRegisteredClaimNames.Sub, user.UserName),
-                new Claim("http://schemas.microsoft.com/ws/2008/06/identity/claims/role", role)
-            };
+            List<Claim> claims = BuildClaims(user, role);
             var signinKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:SigninKey"]));
             int expiryInMinutes = Convert.ToInt32(configuration["Jwt:ExpiryInMinutes"]);
             JwtSecurityToken token;
@@ -66,7 +63,7 @@ namespace OpenMyGarage.Domain.Service
                     token = new JwtSecurityToken(
                                 issuer: configuration["Jwt:Site"],
                                 audience: configuration["Jwt:Site"],
-                                claims: claim,
+                                claims: claims,
                                 signingCredentials: new SigningCredentials(signinKey, SecurityAlgorithms.HmacSha256));
                     break;
 
@@ -76,13 +73,30 @@ namespace OpenMyGarage.Domain.Service
                     token = new JwtSecurityToken(
                                 issuer: configuration["Jwt:Site"],
                                 audience: configuration["Jwt:Site"],
-                                claims: claim,
+                                claims: claims,
                                 expires: DateTime.Now.AddDays(1.0),
                                 signingCredentials: new SigningCredentials(signinKey, SecurityAlgorithms.HmacSha256));
                     break;
             }
 
             return new OkObjectResult(new { token = new JwtSecurityTokenHandler().WriteToken(token), expiration = token.ValidTo });
+        }
+
+        private List<Claim> BuildClaims(ApplicationUser user, string role)
+        {
+            List <Claim> claims = new List<Claim>();
+            claims.Add(new Claim(JwtRegisteredClaimNames.Sub, user.UserName));
+            claims.Add(new Claim("http://schemas.microsoft.com/ws/2008/06/identity/claims/role", role));
+
+            if(user.Privileges.Count > 0)
+            {
+                foreach (var item in user.Privileges)
+                {
+                    claims.Add(new Claim("Privilege", item.Privilege.UserPrivilege.ToString()));
+                }
+            }
+
+            return claims;
         }
 
         private string GetHighestRole(IList<string> roles)
