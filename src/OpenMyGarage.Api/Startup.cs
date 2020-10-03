@@ -35,6 +35,12 @@ namespace OpenMyGarage.Api
                     option.Password.RequireUppercase = true;
                 }).AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
 
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("ManagePlates", policy => policy.RequireClaim("Privilege", UserPrivilege.ManagePlates.ToString()));
+                options.AddPolicy("OpenGate", policy => policy.RequireClaim("Privilege", UserPrivilege.OpenGate.ToString()));
+            });
+
             services.AddMvc(option => option.EnableEndpointRouting = false).SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
         }
 
