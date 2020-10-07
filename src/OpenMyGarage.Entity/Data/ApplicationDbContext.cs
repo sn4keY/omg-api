@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using OpenMyGarage.Entity.Entity;
 using OpenMyGarage.Entity.Entity.UserPrivileges;
@@ -20,6 +21,7 @@ namespace OpenMyGarage.Entity.Data
         {
             base.OnModelCreating(builder);
 
+            #region Privileges
             builder.Entity<Privilege>().HasData(
                 new Privilege() { ID = 1, UserPrivilege = Entity.UserPrivileges.UserPrivilege.OpenGate},
                 new Privilege() { ID = 2, UserPrivilege = Entity.UserPrivileges.UserPrivilege.ManagePlates});
@@ -33,6 +35,14 @@ namespace OpenMyGarage.Entity.Data
                 .HasOne(up => up.Privilege)
                 .WithMany()
                 .HasForeignKey(p => p.PrivilegeId);
+            #endregion
+
+            #region Roles
+            builder.Entity<IdentityRole>().HasData(
+                new IdentityRole { Id = "1", Name = "RaspberryPi", NormalizedName = "RASPBERRYPI" },
+                new IdentityRole { Id = "2", Name = "Admin", NormalizedName = "ADMIN" },
+                new IdentityRole { Id = "3", Name = "User", NormalizedName = "USER" });
+            #endregion
         }
     }
 }
