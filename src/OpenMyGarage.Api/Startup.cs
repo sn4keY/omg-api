@@ -90,6 +90,8 @@ namespace OpenMyGarage.Api
             services.AddTransient(typeof(IService<StoredPlateViewModel, StoredPlate>), typeof(StoredPlateService));
 
             services.AddAutoMapper(typeof(MappingProfile));
+
+            services.Configure<JwtSettings>(Configuration.GetSection("Jwt"));
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
