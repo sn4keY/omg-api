@@ -16,7 +16,6 @@ using OpenMyGarage.Entity.Data;
 using OpenMyGarage.Entity.Entity;
 using OpenMyGarage.Entity.Entity.UserPrivileges;
 using OpenMyGarage.Entity.UnitofWork;
-using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 
 namespace OpenMyGarage.Api

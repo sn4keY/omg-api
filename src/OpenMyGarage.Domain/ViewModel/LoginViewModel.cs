@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace OpenMyGarage.Domain.ViewModel
+﻿namespace OpenMyGarage.Domain.ViewModel
 {
     public class LoginViewModel
     {

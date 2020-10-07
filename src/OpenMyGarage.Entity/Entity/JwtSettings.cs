@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace OpenMyGarage.Entity.Entity
+﻿namespace OpenMyGarage.Entity.Entity
 {
     public class JwtSettings
     {

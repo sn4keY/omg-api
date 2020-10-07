@@ -2,8 +2,6 @@
 using OpenMyGarage.Entity.Repository;
 using System;
 using System.Collections.Generic;
-using System.Reflection;
-using System.Text;
 
 namespace OpenMyGarage.Entity.UnitofWork
 {

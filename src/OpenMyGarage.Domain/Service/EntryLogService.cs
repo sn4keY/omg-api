@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using AutoMapper.QueryableExtensions.Impl;
 using OpenMyGarage.Domain.ViewModel;
 using OpenMyGarage.Entity.Entity;
 using OpenMyGarage.Entity.UnitofWork;
@@ -7,7 +6,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
 
 namespace OpenMyGarage.Domain.Service
 {
