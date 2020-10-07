@@ -23,12 +23,14 @@ namespace OpenMyGarage.Api.Controllers
 
         [HttpPost]
         [Authorize(Roles = "Admin")]
+        [Route("register")]
         public async Task<ActionResult> Register([FromBody] RegisterViewModel newUser)
         {
             return await authenticationService.RegisterUser(newUser);
         }
 
         [HttpPost]
+        [Route("login")]
         public async Task<ActionResult> Login([FromBody] LoginViewModel user)
         {
             return await authenticationService.LoginUser(user);

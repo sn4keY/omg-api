@@ -28,6 +28,7 @@ namespace OpenMyGarage.Api.Controllers
 
         [HttpGet]
         [Authorize(Roles = "RaspberryPi")]
+        [Route("entry")]
         public void Entry([FromBody] EntryLogViewModel entryLog)
         {
             LogEntry(entryLog);
@@ -40,6 +41,7 @@ namespace OpenMyGarage.Api.Controllers
 
         [HttpGet]
         [Authorize(Policy = "OpenGate")]
+        [Route("gate")]
         public void OpenGate() { }
 
         private void LogEntry(EntryLogViewModel entryLog)

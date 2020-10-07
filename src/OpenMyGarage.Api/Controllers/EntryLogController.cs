@@ -24,6 +24,7 @@ namespace OpenMyGarage.Api.Controllers
         }
 
         [HttpGet]
+        [Route("getall")]
         public ActionResult<IEnumerable<EntryLogViewModel>> GetEntryLogs()
         {
             var entryLogs = entryLogService.GetAll();

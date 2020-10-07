@@ -24,6 +24,7 @@ namespace OpenMyGarage.Api.Controllers
         }
 
         [HttpGet]
+        [Route("getall")]
         public ActionResult<IEnumerable<StoredPlateViewModel>> GetStoredPlates()
         {
             var storedPlates = this.storedPlateService.GetAll();
@@ -33,6 +34,7 @@ namespace OpenMyGarage.Api.Controllers
 
         [HttpPost]
         [Authorize(Policy = "ManagePlates")]
+        [Route("add")]
         public void AddStoredPlate(StoredPlateViewModel plate)
         {
             storedPlateService.Insert(plate);
@@ -40,6 +42,7 @@ namespace OpenMyGarage.Api.Controllers
 
         [HttpDelete]
         [Authorize(Policy = "ManagePlates")]
+        [Route("delete")]
         public void DeleteStoredPlate(StoredPlateViewModel plate)
         {
             storedPlateService.Delete(plate);
@@ -47,6 +50,7 @@ namespace OpenMyGarage.Api.Controllers
 
         [HttpPost]
         [Authorize(Policy = "ManagePlates")]
+        [Route("update")]
         public void UpdateStoredPlate(StoredPlateViewModel plate)
         {
             storedPlateService.Update(plate);
