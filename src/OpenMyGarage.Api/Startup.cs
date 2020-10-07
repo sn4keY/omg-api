@@ -35,7 +35,7 @@ namespace OpenMyGarage.Api
                 options.UseMySQL(
                     Configuration.GetConnectionString("MySqlServerConnection")));
 
-            services.AddIdentity<ApplicationUser, IdentityRole>(
+            services.AddIdentity<IdentityUser, IdentityRole>(
                 option => {
                     option.Password.RequireDigit = true;
                     option.Password.RequiredLength = 6;

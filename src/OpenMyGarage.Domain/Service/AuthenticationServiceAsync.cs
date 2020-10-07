@@ -16,10 +16,10 @@ namespace OpenMyGarage.Domain.Service
 {
     public class AuthenticationServiceAsync : IAuthenticationServiceAsync
     {
-        private UserManager<ApplicationUser> userManager;
+        private UserManager<IdentityUser> userManager;
         private IOptions<JwtSettings> jwtSettings;
 
-        public AuthenticationServiceAsync(UserManager<ApplicationUser> um, IOptions<JwtSettings> options)
+        public AuthenticationServiceAsync(UserManager<IdentityUser> um, IOptions<JwtSettings> options)
         {
             this.userManager = um;
             this.jwtSettings = options;
@@ -27,7 +27,7 @@ namespace OpenMyGarage.Domain.Service
 
         public async Task<ActionResult> RegisterUser(RegisterViewModel vm)
         {
-            var user = new ApplicationUser
+            var user = new IdentityUser
             {
                 Email = vm.Email,
                 UserName = vm.Email,
@@ -53,7 +53,7 @@ namespace OpenMyGarage.Domain.Service
             if (!await userManager.CheckPasswordAsync(user, vm.Password))
                 return new UnauthorizedResult();
 
-            List<Claim> claims = BuildClaims(user, role);
+            List<Claim> claims = await BuildClaims(user, role);
             var signinKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.Value.SigningKey));
             int expiryInDays = Convert.ToInt32(jwtSettings.Value.ExpiryInDays);
             JwtSecurityToken token;
@@ -82,18 +82,16 @@ namespace OpenMyGarage.Domain.Service
             return new OkObjectResult(new { token = new JwtSecurityTokenHandler().WriteToken(token), expiration = token.ValidTo });
         }
 
-        private List<Claim> BuildClaims(ApplicationUser user, string role)
+        private async Task<List<Claim>> BuildClaims(IdentityUser user, string role)
         {
             List <Claim> claims = new List<Claim>();
             claims.Add(new Claim(JwtRegisteredClaimNames.Sub, user.UserName));
             claims.Add(new Claim("http://schemas.microsoft.com/ws/2008/06/identity/claims/role", role));
-
-            if(user.Privileges != null && user.Privileges.Count > 0)
+            
+            var userclaims = await userManager.GetClaimsAsync(user);
+            foreach (var claim in userclaims)
             {
-                foreach (var item in user.Privileges)
-                {
-                    claims.Add(new Claim("Privilege", item.Privilege.UserPrivilege.ToString()));
-                }
+                claims.Add(claim);
             }
 
             return claims;
