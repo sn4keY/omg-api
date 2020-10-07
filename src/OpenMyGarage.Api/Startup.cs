@@ -16,7 +16,6 @@ using OpenMyGarage.Entity.Data;
 using OpenMyGarage.Entity.Entity;
 using OpenMyGarage.Entity.Entity.UserPrivileges;
 using OpenMyGarage.Entity.UnitofWork;
-using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 
 namespace OpenMyGarage.Api
@@ -36,7 +35,7 @@ namespace OpenMyGarage.Api
                 options.UseMySQL(
                     Configuration.GetConnectionString("MySqlServerConnection")));
 
-            services.AddIdentity<ApplicationUser, IdentityRole>(
+            services.AddIdentity<IdentityUser, IdentityRole>(
                 option => {
                     option.Password.RequireDigit = true;
                     option.Password.RequiredLength = 6;
@@ -71,6 +70,16 @@ namespace OpenMyGarage.Api
                 options.AddPolicy("OpenGate", policy => policy.RequireClaim("Privilege", Entity.Entity.UserPrivileges.UserPrivilege.OpenGate.ToString()));
             });
 
+            services.AddCors(c =>
+            {
+                c.AddPolicy("Cors", options =>
+                {
+                    options.AllowAnyOrigin();
+                    options.AllowAnyMethod();
+                    options.AllowAnyHeader();
+                });
+            });
+
             services.AddMvc(option => option.EnableEndpointRouting = false).SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
 
             services.AddTransient<IUnitOfWork, UnitOfWork>();
@@ -80,6 +89,8 @@ namespace OpenMyGarage.Api
             services.AddTransient(typeof(IService<StoredPlateViewModel, StoredPlate>), typeof(StoredPlateService));
 
             services.AddAutoMapper(typeof(MappingProfile));
+
+            services.Configure<JwtSettings>(Configuration.GetSection("Jwt"));
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

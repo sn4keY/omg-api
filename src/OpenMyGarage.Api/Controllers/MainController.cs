@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Metadata.Ecma335;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using OpenMyGarage.Domain.Service;
 using OpenMyGarage.Domain.ViewModel;
 using OpenMyGarage.Entity.Entity;
+using System.Linq;
 
 namespace OpenMyGarage.Api.Controllers
 {
@@ -26,8 +21,9 @@ namespace OpenMyGarage.Api.Controllers
             this.storedPlateService = storedPlateService;
         }
 
-        [HttpGet]
+        [HttpPost]
         [Authorize(Roles = "RaspberryPi")]
+        [Route("entry")]
         public void Entry([FromBody] EntryLogViewModel entryLog)
         {
             LogEntry(entryLog);
@@ -40,6 +36,7 @@ namespace OpenMyGarage.Api.Controllers
 
         [HttpGet]
         [Authorize(Policy = "OpenGate")]
+        [Route("gate")]
         public void OpenGate() { }
 
         private void LogEntry(EntryLogViewModel entryLog)

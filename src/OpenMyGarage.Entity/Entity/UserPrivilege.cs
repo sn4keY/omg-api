@@ -1,15 +1,8 @@
-﻿using OpenMyGarage.Entity.Entity.UserPrivileges;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace OpenMyGarage.Entity.Entity
+﻿namespace OpenMyGarage.Entity.Entity.UserPrivileges
 {
-    public class UserPrivilege
+    public enum UserPrivilege
     {
-        public string UserId { get; set; }
-        public ApplicationUser ApplicationUser { get; set; }
-        public int PrivilegeId { get; set; }
-        public Privilege Privilege { get; set; }
+        OpenGate,
+        ManagePlates
     }
 }

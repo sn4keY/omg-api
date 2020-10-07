@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using OpenMyGarage.Domain.ViewModel;
 using OpenMyGarage.Entity.Entity;
@@ -16,18 +16,18 @@ namespace OpenMyGarage.Domain.Service
 {
     public class AuthenticationServiceAsync : IAuthenticationServiceAsync
     {
-        private UserManager<ApplicationUser> userManager;
-        private IConfiguration configuration;
+        private UserManager<IdentityUser> userManager;
+        private IOptions<JwtSettings> jwtSettings;
 
-        public AuthenticationServiceAsync(UserManager<ApplicationUser> um, IConfiguration c)
+        public AuthenticationServiceAsync(UserManager<IdentityUser> um, IOptions<JwtSettings> options)
         {
             this.userManager = um;
-            this.configuration = c;
+            this.jwtSettings = options;
         }
 
         public async Task<ActionResult> RegisterUser(RegisterViewModel vm)
         {
-            var user = new ApplicationUser
+            var user = new IdentityUser
             {
                 Email = vm.Email,
                 UserName = vm.Email,
@@ -53,16 +53,16 @@ namespace OpenMyGarage.Domain.Service
             if (!await userManager.CheckPasswordAsync(user, vm.Password))
                 return new UnauthorizedResult();
 
-            List<Claim> claims = BuildClaims(user, role);
-            var signinKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:SigninKey"]));
-            int expiryInMinutes = Convert.ToInt32(configuration["Jwt:ExpiryInMinutes"]);
+            List<Claim> claims = await BuildClaims(user, role);
+            var signinKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.Value.SigningKey));
+            int expiryInDays = Convert.ToInt32(jwtSettings.Value.ExpiryInDays);
             JwtSecurityToken token;
             switch (role)
             {
                 case "RaspberryPi":
                     token = new JwtSecurityToken(
-                                issuer: configuration["Jwt:Site"],
-                                audience: configuration["Jwt:Site"],
+                                issuer: jwtSettings.Value.Site,
+                                audience: jwtSettings.Value.Site,
                                 claims: claims,
                                 signingCredentials: new SigningCredentials(signinKey, SecurityAlgorithms.HmacSha256));
                     break;
@@ -71,10 +71,10 @@ namespace OpenMyGarage.Domain.Service
                 case "User":
                 default:
                     token = new JwtSecurityToken(
-                                issuer: configuration["Jwt:Site"],
-                                audience: configuration["Jwt:Site"],
+                                issuer: jwtSettings.Value.Site,
+                                audience: jwtSettings.Value.Site,
                                 claims: claims,
-                                expires: DateTime.Now.AddDays(1.0),
+                                expires: DateTime.Now.AddDays(expiryInDays),
                                 signingCredentials: new SigningCredentials(signinKey, SecurityAlgorithms.HmacSha256));
                     break;
             }
@@ -82,18 +82,16 @@ namespace OpenMyGarage.Domain.Service
             return new OkObjectResult(new { token = new JwtSecurityTokenHandler().WriteToken(token), expiration = token.ValidTo });
         }
 
-        private List<Claim> BuildClaims(ApplicationUser user, string role)
+        private async Task<List<Claim>> BuildClaims(IdentityUser user, string role)
         {
             List <Claim> claims = new List<Claim>();
             claims.Add(new Claim(JwtRegisteredClaimNames.Sub, user.UserName));
             claims.Add(new Claim("http://schemas.microsoft.com/ws/2008/06/identity/claims/role", role));
-
-            if(user.Privileges.Count > 0)
+            
+            var userclaims = await userManager.GetClaimsAsync(user);
+            foreach (var claim in userclaims)
             {
-                foreach (var item in user.Privileges)
-                {
-                    claims.Add(new Claim("Privilege", item.Privilege.UserPrivilege.ToString()));
-                }
+                claims.Add(claim);
             }
 
             return claims;
