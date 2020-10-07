@@ -21,7 +21,7 @@ namespace OpenMyGarage.Api.Controllers
             this.storedPlateService = storedPlateService;
         }
 
-        [HttpGet]
+        [HttpPost]
         [Authorize(Roles = "RaspberryPi")]
         [Route("entry")]
         public void Entry([FromBody] EntryLogViewModel entryLog)
