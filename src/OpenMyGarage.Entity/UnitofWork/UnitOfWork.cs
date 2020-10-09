@@ -7,7 +7,7 @@ namespace OpenMyGarage.Entity.UnitofWork
 {
     public class UnitOfWork : IUnitOfWork, IDisposable
     {
-        private ApplicationDbContext context;
+        private readonly ApplicationDbContext context;
         private Dictionary<Type, object> repositories;
         private bool disposed;
 

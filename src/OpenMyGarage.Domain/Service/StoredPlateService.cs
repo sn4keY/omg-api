@@ -11,8 +11,8 @@ namespace OpenMyGarage.Domain.Service
 {
     public class StoredPlateService : IService<StoredPlateViewModel, StoredPlate>
     {
-        private IUnitOfWork unitOfWork;
-        private IMapper mapper;
+        private readonly IUnitOfWork unitOfWork;
+        private readonly IMapper mapper;
 
         public StoredPlateService(IUnitOfWork uof, IMapper m)
         {

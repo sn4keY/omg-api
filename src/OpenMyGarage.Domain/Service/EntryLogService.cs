@@ -11,8 +11,8 @@ namespace OpenMyGarage.Domain.Service
 {
     public class EntryLogService : IService<EntryLogViewModel, EntryLog> 
     {
-        private IUnitOfWork unitOfWork;
-        private IMapper mapper;
+        private readonly IUnitOfWork unitOfWork;
+        private readonly IMapper mapper;
 
         public EntryLogService(IUnitOfWork uof, IMapper m)
         {
