@@ -352,3 +352,4 @@ MigrationBackup/
 # My own ignores
 /src/OpenMyGarage.Api/firebasekey.json
 /src/OpenMyGarage.Api/appsettings.json
+/src/OpenMyGarage.Domain/Service/firebasekey.json
