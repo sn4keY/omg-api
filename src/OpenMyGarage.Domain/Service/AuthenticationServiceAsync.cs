@@ -16,8 +16,8 @@ namespace OpenMyGarage.Domain.Service
 {
     public class AuthenticationServiceAsync : IAuthenticationServiceAsync
     {
-        private UserManager<IdentityUser> userManager;
-        private IOptions<JwtSettings> jwtSettings;
+        private readonly UserManager<IdentityUser> userManager;
+        private readonly IOptions<JwtSettings> jwtSettings;
 
         public AuthenticationServiceAsync(UserManager<IdentityUser> um, IOptions<JwtSettings> options)
         {
