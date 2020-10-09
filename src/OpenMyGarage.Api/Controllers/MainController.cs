@@ -14,11 +14,16 @@ namespace OpenMyGarage.Api.Controllers
     {
         private readonly IService<EntryLogViewModel, EntryLog> entryLogService;
         private readonly IService<StoredPlateViewModel, StoredPlate> storedPlateService;
+        private readonly IFirebaseService firebaseService;
 
-        public MainController(IService<EntryLogViewModel, EntryLog> entryLogService, IService<StoredPlateViewModel, StoredPlate> storedPlateService)
+        public MainController(
+            IService<EntryLogViewModel, EntryLog> entryLogService, 
+            IService<StoredPlateViewModel, StoredPlate> storedPlateService,
+            IFirebaseService firebaseService)
         {
             this.entryLogService = entryLogService;
             this.storedPlateService = storedPlateService;
+            this.firebaseService = firebaseService;
         }
 
         [HttpPost]
@@ -31,7 +36,7 @@ namespace OpenMyGarage.Api.Controllers
             if (storedPlate != null && storedPlate.AutoOpen)
                 OpenGate();
             else
-                ; //firebase
+                firebaseService.SendMessage(entryLog.Plate);
         }
 
         [HttpGet]
