@@ -1,3 +1,5 @@
+using AutoMapper;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -6,7 +8,15 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
+using OpenMyGarage.Api.Mapper;
+using OpenMyGarage.Domain.Service;
+using OpenMyGarage.Domain.ViewModel;
 using OpenMyGarage.Entity.Data;
+using OpenMyGarage.Entity.Entity;
+using OpenMyGarage.Entity.Entity.UserPrivileges;
+using OpenMyGarage.Entity.UnitofWork;
+using System.Text;
 
 namespace OpenMyGarage.Api
 {
@@ -34,7 +44,54 @@ namespace OpenMyGarage.Api
                     option.Password.RequireUppercase = true;
                 }).AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
 
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(options => 
+            {
+                options.SaveToken = true;
+                options.RequireHttpsMetadata = true;
+                options.TokenValidationParameters = new TokenValidationParameters()
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidAudience = Configuration["Jwt:Site"],
+                    ValidIssuer = Configuration["Jwt:Site"],
+                    RequireExpirationTime = false,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:SigningKey"]))
+                };
+            });
+
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("ManagePlates", policy => policy.RequireClaim("Privilege", Entity.Entity.UserPrivileges.UserPrivilege.ManagePlates.ToString()));
+                options.AddPolicy("OpenGate", policy => policy.RequireClaim("Privilege", Entity.Entity.UserPrivileges.UserPrivilege.OpenGate.ToString()));
+            });
+
+            services.AddCors(c =>
+            {
+                c.AddPolicy("Cors", options =>
+                {
+                    options.AllowAnyOrigin();
+                    options.AllowAnyMethod();
+                    options.AllowAnyHeader();
+                });
+            });
+
             services.AddMvc(option => option.EnableEndpointRouting = false).SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
+
+            services.AddTransient<IUnitOfWork, UnitOfWork>();
+
+            services.AddTransient(typeof(IAuthenticationServiceAsync), typeof(AuthenticationServiceAsync));
+            services.AddTransient(typeof(IService<EntryLogViewModel, EntryLog>), typeof(EntryLogService));
+            services.AddTransient(typeof(IService<StoredPlateViewModel, StoredPlate>), typeof(StoredPlateService));
+            services.AddTransient(typeof(IFirebaseService), typeof(FirebaseService));
+
+            services.AddAutoMapper(typeof(MappingProfile));
+
+            services.Configure<JwtSettings>(Configuration.GetSection("Jwt"));
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -53,6 +110,7 @@ namespace OpenMyGarage.Api
             app.UseHttpsRedirection();
 
             app.UseAuthentication();
+            app.UseAuthorization();
             app.UseMvc();
         }
     }

@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OpenMyGarage.Entity.Data;
 
 namespace OpenMyGarage.Entity.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200925124222_addentities")]
+    partial class addentities
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -41,29 +43,6 @@ namespace OpenMyGarage.Entity.Migrations
                         .HasName("RoleNameIndex");
 
                     b.ToTable("AspNetRoles");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "1",
-                            ConcurrencyStamp = "a1368eab-ba8b-44fd-84d4-79c5cefc0aec",
-                            Name = "RaspberryPi",
-                            NormalizedName = "RASPBERRYPI"
-                        },
-                        new
-                        {
-                            Id = "2",
-                            ConcurrencyStamp = "126d9420-721d-4d76-a227-42d5430b4190",
-                            Name = "Admin",
-                            NormalizedName = "ADMIN"
-                        },
-                        new
-                        {
-                            Id = "3",
-                            ConcurrencyStamp = "bc8f0607-b08c-4ffa-8808-0377ff0e2af2",
-                            Name = "User",
-                            NormalizedName = "USER"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

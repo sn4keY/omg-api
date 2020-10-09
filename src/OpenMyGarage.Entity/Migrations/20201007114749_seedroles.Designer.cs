@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OpenMyGarage.Entity.Data;
 
 namespace OpenMyGarage.Entity.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201007114749_seedroles")]
+    partial class seedroles
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -46,21 +48,21 @@ namespace OpenMyGarage.Entity.Migrations
                         new
                         {
                             Id = "1",
-                            ConcurrencyStamp = "a1368eab-ba8b-44fd-84d4-79c5cefc0aec",
+                            ConcurrencyStamp = "5dd2c887-6036-4a81-8f14-b1f6a0752a0b",
                             Name = "RaspberryPi",
                             NormalizedName = "RASPBERRYPI"
                         },
                         new
                         {
                             Id = "2",
-                            ConcurrencyStamp = "126d9420-721d-4d76-a227-42d5430b4190",
+                            ConcurrencyStamp = "469e4da9-c917-4ccd-bcd9-204255c64ce9",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = "3",
-                            ConcurrencyStamp = "bc8f0607-b08c-4ffa-8808-0377ff0e2af2",
+                            ConcurrencyStamp = "56c42977-0b76-4a19-887a-92c8ef9677b2",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -87,70 +89,6 @@ namespace OpenMyGarage.Entity.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetRoleClaims");
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUser", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("varchar(767)");
-
-                    b.Property<int>("AccessFailedCount")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Email")
-                        .HasColumnType("varchar(256)")
-                        .HasMaxLength(256);
-
-                    b.Property<bool>("EmailConfirmed")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("LockoutEnabled")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTimeOffset?>("LockoutEnd")
-                        .HasColumnType("timestamp");
-
-                    b.Property<string>("NormalizedEmail")
-                        .HasColumnType("varchar(256)")
-                        .HasMaxLength(256);
-
-                    b.Property<string>("NormalizedUserName")
-                        .HasColumnType("varchar(256)")
-                        .HasMaxLength(256);
-
-                    b.Property<string>("PasswordHash")
-                        .HasColumnType("text");
-
-                    b.Property<string>("PhoneNumber")
-                        .HasColumnType("text");
-
-                    b.Property<bool>("PhoneNumberConfirmed")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("SecurityStamp")
-                        .HasColumnType("text");
-
-                    b.Property<bool>("TwoFactorEnabled")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("UserName")
-                        .HasColumnType("varchar(256)")
-                        .HasMaxLength(256);
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("NormalizedEmail")
-                        .HasName("EmailIndex");
-
-                    b.HasIndex("NormalizedUserName")
-                        .IsUnique()
-                        .HasName("UserNameIndex");
-
-                    b.ToTable("AspNetUsers");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -278,6 +216,111 @@ namespace OpenMyGarage.Entity.Migrations
                     b.ToTable("StoredPlates");
                 });
 
+            modelBuilder.Entity("OpenMyGarage.Entity.Entity.UserPrivilege", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("varchar(767)");
+
+                    b.Property<int>("PrivilegeId")
+                        .HasColumnType("int");
+
+                    b.HasKey("UserId", "PrivilegeId");
+
+                    b.HasIndex("PrivilegeId");
+
+                    b.ToTable("UserPrivilege");
+                });
+
+            modelBuilder.Entity("OpenMyGarage.Entity.Entity.UserPrivileges.ApplicationUser", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("varchar(767)");
+
+                    b.Property<int>("AccessFailedCount")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("varchar(256)")
+                        .HasMaxLength(256);
+
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("LockoutEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd")
+                        .HasColumnType("timestamp");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasColumnType("varchar(256)")
+                        .HasMaxLength(256);
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasColumnType("varchar(256)")
+                        .HasMaxLength(256);
+
+                    b.Property<string>("PasswordHash")
+                        .HasColumnType("text");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("PhoneNumberConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("SecurityStamp")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("TwoFactorEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("UserName")
+                        .HasColumnType("varchar(256)")
+                        .HasMaxLength(256);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedEmail")
+                        .HasName("EmailIndex");
+
+                    b.HasIndex("NormalizedUserName")
+                        .IsUnique()
+                        .HasName("UserNameIndex");
+
+                    b.ToTable("AspNetUsers");
+                });
+
+            modelBuilder.Entity("OpenMyGarage.Entity.Entity.UserPrivileges.Privilege", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserPrivilege")
+                        .HasColumnType("int");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("Privilege");
+
+                    b.HasData(
+                        new
+                        {
+                            ID = 1,
+                            UserPrivilege = 0
+                        },
+                        new
+                        {
+                            ID = 2,
+                            UserPrivilege = 1
+                        });
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -289,7 +332,7 @@ namespace OpenMyGarage.Entity.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("OpenMyGarage.Entity.Entity.UserPrivileges.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -298,7 +341,7 @@ namespace OpenMyGarage.Entity.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("OpenMyGarage.Entity.Entity.UserPrivileges.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -313,7 +356,7 @@ namespace OpenMyGarage.Entity.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("OpenMyGarage.Entity.Entity.UserPrivileges.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -322,8 +365,23 @@ namespace OpenMyGarage.Entity.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("OpenMyGarage.Entity.Entity.UserPrivileges.ApplicationUser", null)
                         .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("OpenMyGarage.Entity.Entity.UserPrivilege", b =>
+                {
+                    b.HasOne("OpenMyGarage.Entity.Entity.UserPrivileges.Privilege", "Privilege")
+                        .WithMany()
+                        .HasForeignKey("PrivilegeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("OpenMyGarage.Entity.Entity.UserPrivileges.ApplicationUser", "ApplicationUser")
+                        .WithMany("Privileges")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
