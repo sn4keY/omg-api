@@ -87,6 +87,7 @@ namespace OpenMyGarage.Api
             services.AddTransient(typeof(IAuthenticationServiceAsync), typeof(AuthenticationServiceAsync));
             services.AddTransient(typeof(IService<EntryLogViewModel, EntryLog>), typeof(EntryLogService));
             services.AddTransient(typeof(IService<StoredPlateViewModel, StoredPlate>), typeof(StoredPlateService));
+            services.AddTransient(typeof(IFirebaseService), typeof(FirebaseService));
 
             services.AddAutoMapper(typeof(MappingProfile));
 
