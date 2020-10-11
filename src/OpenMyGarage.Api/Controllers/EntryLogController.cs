@@ -28,5 +28,15 @@ namespace OpenMyGarage.Api.Controllers
 
             return entryLogs.ToList();
         }
+
+        [HttpGet]
+        [Route("picture/{id:int}")]
+        public ActionResult GetPicture(int id)
+        {
+            var viewModel = entryLogService.GetById(id);
+            var image = System.IO.File.OpenRead($"../Images/{viewModel.EntryTime}_{viewModel.Plate}.jpg");
+
+            return File(image, "image/jpeg");
+        }
     }
 }
