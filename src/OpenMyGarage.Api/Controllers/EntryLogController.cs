@@ -34,7 +34,7 @@ namespace OpenMyGarage.Api.Controllers
         public ActionResult GetPicture(int id)
         {
             var viewModel = entryLogService.GetById(id);
-            var image = System.IO.File.OpenRead($"/Images/{viewModel.EntryTime}_{viewModel.Plate}.jpg");
+            var image = System.IO.File.OpenRead($"../Images/{viewModel.EntryTime}_{viewModel.Plate}.jpg");
 
             return File(image, "image/jpeg");
         }
