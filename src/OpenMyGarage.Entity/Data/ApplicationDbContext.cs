@@ -27,6 +27,12 @@ namespace OpenMyGarage.Entity.Data
                 new IdentityRole { Id = "2", Name = "Admin", NormalizedName = "ADMIN" },
                 new IdentityRole { Id = "3", Name = "User", NormalizedName = "USER" });
             #endregion
+
+            #region Indexes
+            builder.Entity<StoredPlate>()
+                .HasIndex(p => p.Plate)
+                .IsUnique();
+            #endregion
         }
     }
 }
