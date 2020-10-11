@@ -3,16 +3,15 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace OpenMyGarage.Entity.Entity
 {
-    public class StoredPlate
+    public class StoredPlate : EntityBase
     {
-        [Key]
         [Required]
         public string Plate { get; set; }
 
         [Required]
         public string Name { get; set; }
 
-        [Column(TypeName = "varchar(256)")]
+        [Column(TypeName = "varchar(2)")]
         public string Nationality { get; set; }
 
         [Required]

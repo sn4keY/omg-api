@@ -1,6 +1,6 @@
 ﻿namespace OpenMyGarage.Domain.ViewModel
 {
-    public class StoredPlateViewModel
+    public class StoredPlateViewModel : ViewModelBase
     {
         public string Plate { get; set; }
         public string Name { get; set; }

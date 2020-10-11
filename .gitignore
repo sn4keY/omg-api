@@ -353,3 +353,4 @@ MigrationBackup/
 /src/OpenMyGarage.Api/firebasekey.json
 /src/OpenMyGarage.Api/appsettings.json
 /src/OpenMyGarage.Domain/Service/firebasekey.json
+/src/Images
