@@ -33,7 +33,7 @@ namespace OpenMyGarage.Api
         {
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseMySQL(
-                    Configuration.GetConnectionString("Raspberry")));
+                    Configuration.GetConnectionString("LocalRaspberry")));
 
             services.AddIdentity<IdentityUser, IdentityRole>(
                 option => {
