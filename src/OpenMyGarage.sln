@@ -9,10 +9,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenMyGarage.Entity", "Open
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenMyGarage.Domain", "OpenMyGarage.Domain\OpenMyGarage.Domain.csproj", "{6264A3E3-7357-4FCA-BD37-CE9369161F5E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenMyGarage.Entity.Tests", "OpenMyGarage.Entity.Tests\OpenMyGarage.Entity.Tests.csproj", "{77144097-1C45-418E-BE1D-C59197655053}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenMyGarage.Domain.Tests", "OpenMyGarage.Domain.Tests\OpenMyGarage.Domain.Tests.csproj", "{01EA1D15-729C-4209-815E-8E21C084042B}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,14 +27,6 @@ Global
 		{6264A3E3-7357-4FCA-BD37-CE9369161F5E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6264A3E3-7357-4FCA-BD37-CE9369161F5E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6264A3E3-7357-4FCA-BD37-CE9369161F5E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{77144097-1C45-418E-BE1D-C59197655053}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{77144097-1C45-418E-BE1D-C59197655053}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{77144097-1C45-418E-BE1D-C59197655053}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{77144097-1C45-418E-BE1D-C59197655053}.Release|Any CPU.Build.0 = Release|Any CPU
-		{01EA1D15-729C-4209-815E-8E21C084042B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{01EA1D15-729C-4209-815E-8E21C084042B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{01EA1D15-729C-4209-815E-8E21C084042B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{01EA1D15-729C-4209-815E-8E21C084042B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
