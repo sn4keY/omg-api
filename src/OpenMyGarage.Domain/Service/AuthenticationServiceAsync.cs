@@ -79,7 +79,7 @@ namespace OpenMyGarage.Domain.Service
                     break;
             }
 
-            return new OkObjectResult(new { token = new JwtSecurityTokenHandler().WriteToken(token), expiration = token.ValidTo });
+            return new OkObjectResult(new { token = new JwtSecurityTokenHandler().WriteToken(token), expiration = token.ValidTo.Ticks });
         }
 
         private async Task<List<Claim>> BuildClaims(IdentityUser user, string role)
