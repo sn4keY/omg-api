@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
+using Org.BouncyCastle.Crypto.Tls;
+using System.Security.Cryptography.X509Certificates;
 
 namespace OpenMyGarage.Api
 {
@@ -15,6 +17,13 @@ namespace OpenMyGarage.Api
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
+                    //webBuilder.ConfigureKestrel(serverOptions =>
+                    //{
+                    //    serverOptions.ConfigureHttpsDefaults(listenOptions =>
+                    //    {
+                    //        listenOptions.ServerCertificate = new X509Certificate2(@"/home/pi/HttpsConfig/https.crt", "password");
+                    //    });
+                    //});
                 });
     }
 }
