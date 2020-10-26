@@ -4,7 +4,6 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using OpenMyGarage.Domain.ViewModel;
 using OpenMyGarage.Entity.Entity;
-using OpenMyGarage.Entity.Entity.UserPrivileges;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
