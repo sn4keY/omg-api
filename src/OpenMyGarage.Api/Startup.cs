@@ -15,7 +15,6 @@ using OpenMyGarage.Domain.Service;
 using OpenMyGarage.Domain.ViewModel;
 using OpenMyGarage.Entity.Data;
 using OpenMyGarage.Entity.Entity;
-using OpenMyGarage.Entity.Entity.UserPrivileges;
 using OpenMyGarage.Entity.UnitofWork;
 using System.Text;
 
@@ -67,8 +66,8 @@ namespace OpenMyGarage.Api
 
             services.AddAuthorization(options =>
             {
-                options.AddPolicy("ManagePlates", policy => policy.RequireClaim("Privilege", Entity.Entity.UserPrivileges.UserPrivilege.ManagePlates.ToString()));
-                options.AddPolicy("OpenGate", policy => policy.RequireClaim("Privilege", Entity.Entity.UserPrivileges.UserPrivilege.OpenGate.ToString()));
+                options.AddPolicy("ManagePlates", policy => policy.RequireClaim("Privilege", UserPrivilege.ManagePlates.ToString()));
+                options.AddPolicy("OpenGate", policy => policy.RequireClaim("Privilege", UserPrivilege.OpenGate.ToString()));
             });
 
             services.AddCors(c =>
