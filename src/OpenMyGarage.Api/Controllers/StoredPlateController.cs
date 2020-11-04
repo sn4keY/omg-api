@@ -45,6 +45,14 @@ namespace OpenMyGarage.Api.Controllers
             storedPlateService.Delete(plate);
         }
 
+        [HttpDelete]
+        [Authorize(Policy = "ManagePlates")]
+        [Route("delete/{id:int}")]
+        public void DeleteStoredPlate(int id)
+        {
+            storedPlateService.Delete(id);
+        }
+
         [HttpPost]
         [Authorize(Policy = "ManagePlates")]
         [Route("update")]
