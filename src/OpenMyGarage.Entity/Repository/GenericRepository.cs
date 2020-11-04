@@ -65,8 +65,7 @@ namespace OpenMyGarage.Entity.Repository
 
         public void Update(TEntity entityToUpdate)
         {
-            dbSet.Attach(entityToUpdate);
-            context.Entry(entityToUpdate).State = EntityState.Modified;
+            dbSet.Update(entityToUpdate);
         }
     }
 }
