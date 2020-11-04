@@ -2,6 +2,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -14,7 +15,6 @@ using OpenMyGarage.Domain.Service;
 using OpenMyGarage.Domain.ViewModel;
 using OpenMyGarage.Entity.Data;
 using OpenMyGarage.Entity.Entity;
-using OpenMyGarage.Entity.Entity.UserPrivileges;
 using OpenMyGarage.Entity.UnitofWork;
 using System.Text;
 
@@ -66,8 +66,8 @@ namespace OpenMyGarage.Api
 
             services.AddAuthorization(options =>
             {
-                options.AddPolicy("ManagePlates", policy => policy.RequireClaim("Privilege", Entity.Entity.UserPrivileges.UserPrivilege.ManagePlates.ToString()));
-                options.AddPolicy("OpenGate", policy => policy.RequireClaim("Privilege", Entity.Entity.UserPrivileges.UserPrivilege.OpenGate.ToString()));
+                options.AddPolicy("ManagePlates", policy => policy.RequireClaim("Privilege", UserPrivilege.ManagePlates.ToString()));
+                options.AddPolicy("OpenGate", policy => policy.RequireClaim("Privilege", UserPrivilege.OpenGate.ToString()));
             });
 
             services.AddCors(c =>
@@ -92,6 +92,11 @@ namespace OpenMyGarage.Api
             services.AddAutoMapper(typeof(MappingProfile));
 
             services.Configure<JwtSettings>(Configuration.GetSection("Jwt"));
+            //services.AddHttpsRedirection(options =>
+            //{
+            //    options.RedirectStatusCode = StatusCodes.Status307TemporaryRedirect;
+            //    options.HttpsPort = 6001;
+            //});
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

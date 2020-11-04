@@ -60,17 +60,12 @@ namespace OpenMyGarage.Entity.Repository
 
         public void Delete(TEntity entity)
         {
-            if (context.Entry(entity).State == EntityState.Detached)
-            {
-                dbSet.Attach(entity);
-            }
             dbSet.Remove(entity);
         }
 
         public void Update(TEntity entityToUpdate)
         {
-            dbSet.Attach(entityToUpdate);
-            context.Entry(entityToUpdate).State = EntityState.Modified;
+            dbSet.Update(entityToUpdate);
         }
     }
 }

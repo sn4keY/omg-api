@@ -4,7 +4,6 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using OpenMyGarage.Domain.ViewModel;
 using OpenMyGarage.Entity.Entity;
-using OpenMyGarage.Entity.Entity.UserPrivileges;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
@@ -79,7 +78,7 @@ namespace OpenMyGarage.Domain.Service
                     break;
             }
 
-            return new OkObjectResult(new { token = new JwtSecurityTokenHandler().WriteToken(token), expiration = token.ValidTo });
+            return new OkObjectResult(new { token = new JwtSecurityTokenHandler().WriteToken(token), expiration = token.ValidTo.Ticks });
         }
 
         private async Task<List<Claim>> BuildClaims(IdentityUser user, string role)

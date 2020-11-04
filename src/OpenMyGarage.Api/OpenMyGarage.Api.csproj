@@ -21,4 +21,10 @@
     <ProjectReference Include="..\OpenMyGarage.Entity\OpenMyGarage.Entity.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Update="appsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
 </Project>

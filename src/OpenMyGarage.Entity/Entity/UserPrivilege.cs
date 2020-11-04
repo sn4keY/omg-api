@@ -1,4 +1,4 @@
-﻿namespace OpenMyGarage.Entity.Entity.UserPrivileges
+﻿namespace OpenMyGarage.Entity.Entity
 {
     public enum UserPrivilege
     {
