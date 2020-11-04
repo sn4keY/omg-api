@@ -14,7 +14,7 @@ namespace OpenMyGarage.Domain.Service
         {
             var app = FirebaseApp.Create(new AppOptions()
             {
-                Credential = GoogleCredential.FromFile(@"/home/pi/OpenMyGaragare/Api/Service/firebasekey.json")
+                Credential = GoogleCredential.FromFile(@"/home/pi/OpenMyGarage/API/Service/firebasekey.json")
             });
 
             var messaging = FirebaseMessaging.GetMessaging(app);
