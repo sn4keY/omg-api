@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using OpenMyGarage.Entity.Entity;
-using OpenMyGarage.Entity.Entity.UserPrivileges;
 
 namespace OpenMyGarage.Entity.Data
 {
