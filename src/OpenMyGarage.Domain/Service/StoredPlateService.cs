@@ -63,8 +63,9 @@ namespace OpenMyGarage.Domain.Service
 
         public void Update(StoredPlateViewModel vmToUpdate)
         {
+            unitOfWork.GetRepository<StoredPlate>().Delete(vmToUpdate.ID);
             var entity = mapper.Map<StoredPlate>(vmToUpdate);
-            unitOfWork.GetRepository<StoredPlate>().Update(entity);
+            unitOfWork.GetRepository<StoredPlate>().Insert(entity);
             unitOfWork.Save();
         }
     }
