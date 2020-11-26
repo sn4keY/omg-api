@@ -24,7 +24,9 @@
     <PackageReference Include="AutoMapper" Version="10.0.0" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.0.1" />
     <PackageReference Include="FirebaseAdmin" Version="1.17.0" />
+    <PackageReference Include="Iot.Device.Bindings" Version="1.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
+    <PackageReference Include="System.Device.Gpio" Version="1.2.0" />
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.7.1" />
   </ItemGroup>
 

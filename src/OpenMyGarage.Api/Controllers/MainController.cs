@@ -15,15 +15,18 @@ namespace OpenMyGarage.Api.Controllers
         private readonly IService<EntryLogViewModel, EntryLog> entryLogService;
         private readonly IService<StoredPlateViewModel, StoredPlate> storedPlateService;
         private readonly IFirebaseService firebaseService;
+        private readonly IGateService gateService;
 
         public MainController(
             IService<EntryLogViewModel, EntryLog> entryLogService, 
             IService<StoredPlateViewModel, StoredPlate> storedPlateService,
-            IFirebaseService firebaseService)
+            IFirebaseService firebaseService,
+            IGateService gateService)
         {
             this.entryLogService = entryLogService;
             this.storedPlateService = storedPlateService;
             this.firebaseService = firebaseService;
+            this.gateService = gateService;
         }
 
         [HttpPost]
@@ -42,7 +45,10 @@ namespace OpenMyGarage.Api.Controllers
         [HttpGet]
         [Authorize(Policy = "OpenGate")]
         [Route("gate")]
-        public void OpenGate() { }
+        public void OpenGate()
+        {
+            gateService.ToggleGate();
+        }
 
         private void LogEntry(EntryLogViewModel entryLog)
         {
