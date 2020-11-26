@@ -17,13 +17,6 @@ namespace OpenMyGarage.Api
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
-                    //webBuilder.ConfigureKestrel(serverOptions =>
-                    //{
-                    //    serverOptions.ConfigureHttpsDefaults(listenOptions =>
-                    //    {
-                    //        listenOptions.ServerCertificate = new X509Certificate2(@"/home/pi/HttpsConfig/https.crt", "password");
-                    //    });
-                    //});
                 });
     }
 }
