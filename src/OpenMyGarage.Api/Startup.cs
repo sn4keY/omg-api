@@ -2,7 +2,6 @@ using AutoMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -92,11 +91,6 @@ namespace OpenMyGarage.Api
             services.AddAutoMapper(typeof(MappingProfile));
 
             services.Configure<JwtSettings>(Configuration.GetSection("Jwt"));
-            //services.AddHttpsRedirection(options =>
-            //{
-            //    options.RedirectStatusCode = StatusCodes.Status307TemporaryRedirect;
-            //    options.HttpsPort = 6001;
-            //});
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -119,4 +113,4 @@ namespace OpenMyGarage.Api
             app.UseMvc();
         }
     }
-}
+} 
