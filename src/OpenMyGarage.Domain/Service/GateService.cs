@@ -11,7 +11,7 @@ namespace OpenMyGarage.Domain.Service
     {
         public async Task ToggleGate()
         {
-            var pin = 11;
+            var pin = 17;
             var gpioController = new GpioController();
 
             gpioController.OpenPin(pin, PinMode.Output);
