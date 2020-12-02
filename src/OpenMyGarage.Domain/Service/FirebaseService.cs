@@ -10,14 +10,19 @@ namespace OpenMyGarage.Domain.Service
 {
     public class FirebaseService : IFirebaseService
     {
-        public async Task SendMessage(string plate)
+        private readonly FirebaseApp app;
+
+        public FirebaseService()
         {
-            var app = FirebaseApp.Create(new AppOptions()
+            this.app = FirebaseApp.Create(new AppOptions()
             {
                 Credential = GoogleCredential.FromFile(@"/home/pi/OpenMyGarage/API/Service/firebasekey.json")
             });
+        }
 
-            var messaging = FirebaseMessaging.GetMessaging(app);
+        public async Task SendMessage(string plate)
+        {
+            var messaging = FirebaseMessaging.GetMessaging(this.app);
 
             var message = new Message()
             {
