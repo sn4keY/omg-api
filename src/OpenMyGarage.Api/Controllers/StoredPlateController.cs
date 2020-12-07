@@ -30,7 +30,7 @@ namespace OpenMyGarage.Api.Controllers
         }
 
         [HttpGet]
-        [Route("get/{string:plate}")]
+        [Route("get/{plate}")]
         public ActionResult<StoredPlateViewModel> GetStoredPlate(string plate)
         {
             var storedPlate = this.storedPlateService.Get(p => p.Plate == plate).FirstOrDefault();
