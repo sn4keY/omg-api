@@ -29,6 +29,15 @@ namespace OpenMyGarage.Api.Controllers
             return storedPlates.ToList();
         }
 
+        [HttpGet]
+        [Route("get/{plate}")]
+        public ActionResult<StoredPlateViewModel> GetStoredPlate(string plate)
+        {
+            var storedPlate = this.storedPlateService.Get(p => p.Plate == plate).FirstOrDefault();
+
+            return storedPlate;
+        }
+
         [HttpPost]
         [Authorize(Policy = "ManagePlates")]
         [Route("add")]
